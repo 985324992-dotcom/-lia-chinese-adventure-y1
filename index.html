@@ -83,7 +83,7 @@ const sentences=[
 ['Ask who is in the family.',['你家','有','谁','？'],['几口','名字','吗']],
 ['Say “I have one younger sister.”',['我','有','一个','妹妹','。'],['没有','姐姐','谁']],
 ['Say “I do not have an older sister.”',['我','没有','姐姐','。'],['有','妹妹','吗']],
-['Say “Nice to meet you.”',['认识','你','很','高兴','。'],['我','谁','吗']],
+['Say “Nice to meet you.”',['认识','你','很','高兴','。'],['我','谁','吗'],[['很','高兴','认识','你','。']]],
 ['Say “Nice to meet you, too.”',['认识','你','也','很','高兴','。'],['不','名字','谁']]
 ];
 const levelsData=[
@@ -112,7 +112,7 @@ function startSentence(){si=0;show('sentence');renderSentence()}
 function renderSentence(){built=[];sentenceLocked=false;el('checkBtn').disabled=false;let x=sentences[si];sentenceCounterEl.textContent='Sentence '+(si+1)+' of '+sentences.length;promptEl.textContent=x[0];el('built').innerHTML='';bankEl.innerHTML='';sentenceFeedbackEl.textContent='';shuffle([...x[1],...x[2]]).forEach((w,n)=>{let b=document.createElement('button');b.className='word';b.textContent=w;b.dataset.n=n;b.onclick=()=>{built.push({word:w,button:b});b.disabled=true;b.style.opacity=.4;renderBuilt()};bankEl.appendChild(b)})}
 function renderBuilt(){let z=el('built');z.innerHTML='';built.forEach((item,i)=>{let b=document.createElement('button');b.className='word';b.textContent=item.word;b.title='Tap to remove';b.onclick=()=>{item.button.disabled=false;item.button.style.opacity=1;built.splice(i,1);renderBuilt()};z.appendChild(b)})}
 function clearBuilt(){built.forEach(item=>{item.button.disabled=false;item.button.style.opacity=1});built=[];renderBuilt()}
-function checkSentence(){if(sentenceLocked)return;let x=sentences[si];if(built.map(v=>v.word).join('')===x[1].join('')){sentenceLocked=true;el('checkBtn').disabled=true;if(!awarded[5].has(si)){awarded[5].add(si);stars+=2}stats();sentenceFeedbackEl.textContent='✅ Perfect!';setTimeout(()=>{si++;si>=sentences.length?complete(5):renderSentence()},700)}else{lives=Math.max(0,lives-1);stats();sentenceFeedbackEl.textContent='The word order is not correct. Try again.'}}
+function checkSentence(){if(sentenceLocked)return;let x=sentences[si],attempt=built.map(v=>v.word).join(''),accepted=[x[1],...(x[3]||[])].map(words=>words.join(''));if(accepted.includes(attempt)){sentenceLocked=true;el('checkBtn').disabled=true;if(!awarded[5].has(si)){awarded[5].add(si);stars+=2}stats();sentenceFeedbackEl.textContent='✅ Perfect!';setTimeout(()=>{si++;si>=sentences.length?complete(5):renderSentence()},700)}else{lives=Math.max(0,lives-1);stats();sentenceFeedbackEl.textContent='The word order is not correct. Try again.'}}
 function complete(i){done[i]=true;if(i===levelsData.length-1){finalStarsEl.textContent=stars;show('finish');stageEl.textContent='Complete'}else{alert('🎉 Level complete! The next level is unlocked.');showMap()}}
 function resetGame(){stars=0;lives=5;done=Array(levelsData.length).fill(false);stats();showMap()}
 function resetGameFixed(){resetGame();awarded=levelsData.map(()=>new Set());sentenceLocked=false}
