@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>中文大冒险 YCT 1-4</title>
+<style>
+*{box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;margin:0;background:linear-gradient(135deg,#eaf6ff,#fff5df);color:#243447}.wrap{max-width:900px;margin:auto;padding:18px}.card{background:#fff;border-radius:24px;padding:24px;box-shadow:0 12px 30px #2342;min-height:590px}.hide{display:none!important}h1,h2{text-align:center}.subtitle{text-align:center;font-size:19px;line-height:1.6}.stats{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:12px}.pill{background:#fff;border-radius:999px;padding:8px 13px;font-weight:700;box-shadow:0 3px 10px #2341}.btn,button{border:0;border-radius:15px;padding:13px 17px;font-size:18px;font-weight:700;cursor:pointer;touch-action:manipulation}.primary{background:#ff8a3d;color:#fff}.secondary{background:#eaf3ff;color:#245b91}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.level{background:#fff;border:2px solid #d9e5f2;text-align:left;padding:18px;min-height:125px}.locked{opacity:.45}.done{border-color:#2dbf78;background:#effff7}.q{font-size:32px;text-align:center;margin:22px 0 10px}.emoji{font-size:58px;text-align:center}.answers{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.ans{background:#fff;border:2px solid #d9e5f2;min-height:68px}.correct{background:#edfff6!important;border-color:#2dbf78!important}.wrong{background:#fff1f4!important;border-color:#e85d75!important}.feedback{text-align:center;font-size:20px;font-weight:700;min-height:55px;padding:12px}.bar{height:12px;background:#edf1f6;border-radius:999px;overflow:hidden}.bar>div{height:100%;background:#4d96ff;width:0}.counter{text-align:center;color:#617285;font-weight:700;margin:10px}.match{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.tile{min-height:72px;background:#fff;border:2px solid #d9e5f2;padding:8px}.open{background:#eef6ff}.matched{background:#edfff6;border-color:#2dbf78;opacity:.65}.words,.built{display:flex;gap:9px;flex-wrap:wrap;justify-content:center}.built{min-height:76px;border:2px dashed #c8d9eb;border-radius:15px;padding:12px;margin:16px 0}.word{background:#f4f8fd;color:#1670c9}.cert{text-align:center;border:8px double #f1b649;border-radius:22px;padding:28px;background:#fffdf5}.lesson-tags{text-align:center;line-height:2}.tag{display:inline-block;background:#eef6ff;border-radius:999px;padding:4px 10px;margin:3px}.small{font-size:15px;color:#607080;text-align:center}@media(max-width:650px){.grid,.answers{grid-template-columns:1fr}.match{grid-template-columns:repeat(2,1fr)}.q{font-size:27px}.card{padding:17px;min-height:570px}.wrap{padding:10px}.btn,button{font-size:17px}.emoji{font-size:50px}}
+</style>
+</head>
+<body>
+<p style="text-align:center;font:14px sans-serif;color:#245b91">Y1 · Random options · v20260827-2</p>
+<div class="wrap">
+<div class="stats"><span class="pill">⭐ <b id="stars">0</b></span><span class="pill">❤️ <b id="lives">5</b></span><span class="pill">🏁 <b id="stage">Start</b></span></div>
+<section id="start" class="card"><div class="emoji">🐼</div><h1>中文大冒险</h1><h2>YCT Level 1 · Lessons 1-4</h2><p class="subtitle">Complete seven levels and practise greetings, names, nationalities, family and numbers.</p><div class="lesson-tags"><span class="tag">Lesson 1 · Greetings</span><span class="tag">Lesson 2 · Name & Country</span><span class="tag">Lesson 3 · Who?</span><span class="tag">Lesson 4 · Family</span></div><p style="text-align:center"><button id="startBtn" class="primary">Start Adventure</button></p></section>
+<section id="map" class="card hide"><h2>Choose a Level</h2><p class="small">Complete each level to unlock the next one.</p><div id="levels" class="grid"></div><p style="text-align:center"><button id="resetMapBtn" class="secondary">Start Again</button></p></section>
+<section id="quiz" class="card hide"><button class="secondary map-btn">← Level Map</button><p class="counter" id="counter"></p><p class="small">Choose the correct answer.</p><div class="bar"><div id="qbar"></div></div><div id="emoji" class="emoji"></div><div id="question" class="q"></div><p style="text-align:center"><button id="speakBtn" class="secondary">🔊 Listen to Chinese</button></p><div id="answers" class="answers"></div><div id="feedback" class="feedback"></div><p style="text-align:center"><button id="next" class="primary hide">Next Question →</button></p></section>
+<section id="match" class="card hide"><button class="secondary map-btn">← Level Map</button><h2>Word Matching</h2><p class="small">Match each Chinese word with its English meaning.</p><div id="matchGrid" class="match"></div><div id="matchFeedback" class="feedback"></div></section>
+<section id="sentence" class="card hide"><button class="secondary map-btn">← Level Map</button><h2>Sentence Builder</h2><p class="counter" id="sentenceCounter"></p><p class="small">Tap the words in the correct order.</p><div id="prompt" class="q"></div><div id="built" class="built"></div><div id="bank" class="words"></div><div id="sentenceFeedback" class="feedback"></div><p style="text-align:center"><button id="clearBtn" class="secondary">Clear</button> <button id="checkBtn" class="primary">Check Answer</button></p></section>
+<section id="finish" class="card hide"><div class="cert"><div class="emoji">🏆</div><h1>Adventure Complete!</h1><h2>Congratulations! You completed Lessons 1-4.</h2><p style="font-size:24px">Final Stars: ⭐ <b id="finalStars"></b></p><p>Take a screenshot and submit it in Google Classroom.</p><button id="playAgainBtn" class="primary">Play Again</button></div></section>
+</div>
+<script>
+const ownership=[
+['🌅','早上好，同学们！','早上好，同学们！',['早上好，老师。','下午好，老师。','再见，老师。','我很好。'],0],
+['☀️','下午好，同学们！','下午好，同学们！',['早上好，老师。','下午好，老师。','你好，妈妈。','再见，老师。'],1],
+['👋','你好。','你好。',['你好。','我很好。','再见。','谢谢。'],0],
+['😊','你好吗？','你好吗？',['我很好。','我叫小明。','我是泰国人。','再见。'],0],
+['👩‍🏫','What is “teacher” in Chinese?','老师',['妈妈','老师','姐姐','奶奶'],1],
+['👋','再见。','再见。',['你好。','再见。','很好。','认识。'],1],
+['😊','认识你很高兴！','认识你很高兴！',['认识你也很高兴。','我不认识他。','你叫什么名字？','老师好。'],0],
+['🙂','What does “很好” mean?','很好',['very good','goodbye','teacher','name'],0],
+['🤝','What does “认识” mean?','认识',['know / meet','name','country','family'],0]
+];
+const places=[
+['🏷️','你叫什么名字？','你叫什么名字？',['我叫小明。','我很好。','我是泰国人。','我有妹妹。'],0],
+['🇹🇭','你是哪国人？','你是哪国人？',['我是泰国人。','我是老师。','我叫小明。','我家有四口人。'],0],
+['🇨🇳','老师Lia是哪国人？','老师Lia是哪国人？',['老师Lia是中国人。','老师Lia是妈妈。','老师Lia很好。','老师Lia有四口人。'],0],
+['👧','你认识她吗？','你认识她吗？',['认识。','我叫小明。','我是泰国人。','她是妈妈吗？'],0],
+['🇨🇳','What is “Chinese person” in Chinese?','中国人',['泰国人','中国人','老师','家人'],1],
+['🇹🇭','What is “Thai person” in Chinese?','泰国人',['中国人','泰国人','哪国人','三口人'],1],
+['🏷️','What does “名字” mean?','名字',['name','country','teacher','family'],0]
+];
+const dates=[
+['👨','他是谁？','他是谁？',['他是我爸爸。','她是我妈妈。','我是泰国人。','他有四口人。'],0],
+['👩','她是谁？','她是谁？',['她是我妈妈。','他是我爸爸。','她是哪国人？','我不认识他。'],0],
+['🏠','你家有几口人？','你家有几口人？',['我家有四口人。','我有一个妹妹。','我叫小明。','我是中国人。'],0],
+['👨‍👩‍👧‍👦','你家有谁？','你家有谁？',['我家有爸爸、妈妈、哥哥和我。','我家有四口人。','我是泰国人。','你认识她吗？'],0],
+['👧','你有妹妹吗？','你有妹妹吗？',['我有一个妹妹。','我是妹妹。','她是我妈妈。','我家有四口人。'],0],
+['👧','Which sentence means “I do not have an older sister”?','我没有姐姐。',['我没有姐姐。','我有一个姐姐。','姐姐是中国人。','她不认识我。'],0],
+['👴','What is “grandfather” in Chinese?','爷爷',['奶奶','爷爷','爸爸','哥哥'],1],
+['👵','What is “grandmother” in Chinese?','奶奶',['妈妈','妹妹','奶奶','姐姐'],2],
+['👦','What is “younger brother” in Chinese?','弟弟',['哥哥','弟弟','爸爸','爷爷'],1],
+['👧','What is “older sister” in Chinese?','姐姐',['妹妹','妈妈','姐姐','奶奶'],2],
+['➕','Choose the sentence with “和”.','和',['我有一个弟弟和一个妹妹。','我没有姐姐。','他不是美国人。','你好吗？'],0]
+];
+const times=[
+['1️⃣','What is “one” in Chinese?','一',['一','二','三','十'],0],
+['3️⃣','What is “three” in Chinese?','三',['二','三','五','八'],1],
+['5️⃣','What is “five” in Chinese?','五',['四','六','五','九'],2],
+['8️⃣','What is “eight” in Chinese?','八',['七','九','十','八'],3],
+['🔟','What is “ten” in Chinese?','十',['一','五','九','十'],3],
+['1️⃣2️⃣','What number is “十二”?','十二',['10','11','12','20'],2],
+['1️⃣5️⃣','What number is “十五”?','十五',['13','14','15','16'],2],
+['1️⃣8️⃣','What number is “十八”?','十八',['17','18','19','20'],1],
+['2️⃣0️⃣','What number is “二十”?','二十',['12','18','19','20'],3],
+['👥','我家有七口人。','我家有七口人。',['7 people','6 people','8 people','10 people'],0],
+['👫','我有三个朋友。','我有三个朋友。',['2 friends','3 friends','4 friends','5 friends'],1],
+['🔢','What number comes next: 八、九、?','十',['七','十','十一','二十'],1]
+];
+const matchPairs=[['老师','teacher'],['名字','name'],['中国','China'],['泰国','Thailand'],['爸爸','father'],['妈妈','mother'],['哥哥','older brother'],['弟弟','younger brother'],['姐姐','older sister'],['妹妹','younger sister'],['爷爷','grandfather'],['奶奶','grandmother']];
+const sentences=[
+['Say hello to the teacher.',['老师','好','。'],['妈妈','吗','谁']],
+['Ask how someone is.',['你','好','吗','？'],['我','叫','谁']],
+['Say “I am fine.”',['我','很','好','。'],['你','吗','叫']],
+['Ask someone’s name.',['你','叫','什么','名字','？'],['我','是','谁']],
+['Introduce your name.',['我','叫','小明','。'],['你','哪国人','吗']],
+['Ask someone’s nationality.',['你','是','哪国人','？'],['我','叫','谁']],
+['Say “I am Thai.”',['我','是','泰国人','。'],['你','中国人','吗']],
+['Ask “Who is he?”',['他','是','谁','？'],['她','叫','吗']],
+['Say “He is my teacher.”',['他','是','我','老师','。'],['谁','有','吗']],
+['Ask how many people are in the family.',['你家','有','几口','人','？'],['谁','名字','吗']],
+['Say there are four people in my family.',['我家','有','四口','人','。'],['你家','谁','没有']],
+['Ask who is in the family.',['你家','有','谁','？'],['几口','名字','吗']],
+['Say “I have one younger sister.”',['我','有','一个','妹妹','。'],['没有','姐姐','谁']],
+['Say “I do not have an older sister.”',['我','没有','姐姐','。'],['有','妹妹','吗']],
+['Say “Nice to meet you.”',['认识','你','很','高兴','。'],['我','谁','吗'],[['很','高兴','认识','你','。']]],
+['Say “Nice to meet you, too.”',['认识','你','也','很','高兴','。'],['不','名字','谁']]
+];
+const levelsData=[
+{icon:'👋',name:'Greetings',type:'quiz',data:ownership},
+{icon:'🌏',name:'Name & Nationality',type:'quiz',data:places},
+{icon:'👨‍👩‍👧‍👦',name:'Family & Who',type:'quiz',data:dates},
+{icon:'🔢',name:'Numbers 1-20',type:'quiz',data:times},
+{icon:'🧩',name:'Word Matching',type:'match'},
+{icon:'✍️',name:'Sentence Builder',type:'sentence'},
+{icon:'🐼',name:'Final Challenge',type:'boss'}
+];
+let stars=0,lives=5,done=Array(levelsData.length).fill(false),set=[],qi=0,level=0,locked=false,first=null,matched=0,si=0,built=[],awarded=levelsData.map(()=>new Set()),sentenceLocked=false;
+const el=id=>document.getElementById(id),starsEl=el('stars'),livesEl=el('lives'),stageEl=el('stage'),levelsEl=el('levels'),emojiEl=el('emoji'),questionEl=el('question'),answersEl=el('answers'),feedbackEl=el('feedback'),nextEl=el('next'),qbarEl=el('qbar'),matchGridEl=el('matchGrid'),matchFeedbackEl=el('matchFeedback'),promptEl=el('prompt'),bankEl=el('bank'),sentenceFeedbackEl=el('sentenceFeedback'),finalStarsEl=el('finalStars'),counterEl=el('counter'),sentenceCounterEl=el('sentenceCounter');
+function show(id){document.querySelectorAll('section').forEach(x=>x.classList.add('hide'));el(id).classList.remove('hide');window.scrollTo(0,0)}
+function stats(){starsEl.textContent=stars;livesEl.textContent=lives}
+function showMap(){show('map');stageEl.textContent='Map';levelsEl.innerHTML='';levelsData.forEach((x,i)=>{let b=document.createElement('button');b.className='level '+(done[i]?'done ':'')+((i&&!done[i-1])?'locked':'');b.disabled=i&&!done[i-1];b.innerHTML='<div style="font-size:34px">'+(done[i]?'✅':x.icon)+'</div><h3>'+(i+1)+'. '+x.name+'</h3><div class="small">'+levelDescription(x.type,x.data)+'</div>';b.onclick=()=>startLevel(i);levelsEl.appendChild(b)})}
+function levelDescription(type,data){if(type==='quiz')return data.length+' questions';if(type==='match')return matchPairs.length+' word pairs';if(type==='sentence')return sentences.length+' sentences';return '15 mixed questions'}
+function startLevel(i){level=i;stageEl.textContent=(i+1)+'/'+levelsData.length;let x=levelsData[i];if(x.type==='quiz'){set=[...x.data];qi=0;renderQ()}else if(x.type==='match')startMatch();else if(x.type==='sentence')startSentence();else{set=shuffle([...ownership,...places,...dates,...times]).slice(0,15);qi=0;renderQ()}}
+function renderQ(){show('quiz');locked=false;let x=set[qi];counterEl.textContent='Question '+(qi+1)+' of '+set.length;emojiEl.textContent=x[0];questionEl.textContent=x[1];answersEl.innerHTML='';feedbackEl.textContent='';nextEl.classList.add('hide');qbarEl.style.width=(qi/set.length*100)+'%';shuffle(x[3].map((t,i)=>({t,i}))).forEach(({t,i})=>{let b=document.createElement('button');b.className='ans';b.textContent=t;b.dataset.answerIndex=i;b.onclick=()=>answer(i,b);answersEl.appendChild(b)})}
+function answer(i,b){if(locked)return;locked=true;let x=set[qi];[...answersEl.children].forEach((n,k)=>{n.disabled=true;if(Number(n.dataset.answerIndex)===x[4])n.classList.add('correct')});if(i===x[4]){if(!awarded[level].has(qi)){awarded[level].add(qi);stars++}b.classList.add('correct');feedbackEl.textContent='✅ Great! Correct!'}else{lives=Math.max(0,lives-1);b.classList.add('wrong');feedbackEl.textContent='Not quite. Look at the correct answer.'}stats();qbarEl.style.width=((qi+1)/set.length*100)+'%';nextEl.classList.remove('hide')}
+function nextQ(){qi++;qi>=set.length?complete(level):renderQ()}
+function speakQ(){let x=set[qi];if('speechSynthesis' in window){speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(x[2]);u.lang='zh-CN';u.rate=.78;speechSynthesis.speak(u)}}
+function startMatch(){show('match');first=null;matched=0;matchFeedbackEl.textContent='';let arr=[];matchPairs.forEach((p,i)=>{arr.push([p[0],i]);arr.push([p[1],i])});matchGridEl.innerHTML='';shuffle(arr).forEach(x=>{let b=document.createElement('button');b.className='tile';b.textContent=x[0];b.dataset.p=x[1];b.onclick=()=>flip(b);matchGridEl.appendChild(b)})}
+function flip(b){if(b.classList.contains('matched')||b===first)return;b.classList.add('open');if(!first){first=b;return}if(first.dataset.p===b.dataset.p){let pairId=Number(b.dataset.p);first.classList.add('matched');b.classList.add('matched');first.classList.remove('open');b.classList.remove('open');first=null;matched++;if(!awarded[4].has(pairId)){awarded[4].add(pairId);stars+=2}stats();matchFeedbackEl.textContent='✅ Correct match!';if(matched===matchPairs.length)setTimeout(()=>complete(4),600)}else{let a=first;first=null;lives=Math.max(0,lives-1);stats();matchFeedbackEl.textContent='These two do not match. Try again.';setTimeout(()=>{a.classList.remove('open');b.classList.remove('open')},700)}}
+function startSentence(){si=0;show('sentence');renderSentence()}
+function renderSentence(){built=[];sentenceLocked=false;el('checkBtn').disabled=false;let x=sentences[si];sentenceCounterEl.textContent='Sentence '+(si+1)+' of '+sentences.length;promptEl.textContent=x[0];el('built').innerHTML='';bankEl.innerHTML='';sentenceFeedbackEl.textContent='';shuffle([...x[1],...x[2]]).forEach((w,n)=>{let b=document.createElement('button');b.className='word';b.textContent=w;b.dataset.n=n;b.onclick=()=>{built.push({word:w,button:b});b.disabled=true;b.style.opacity=.4;renderBuilt()};bankEl.appendChild(b)})}
+function renderBuilt(){let z=el('built');z.innerHTML='';built.forEach((item,i)=>{let b=document.createElement('button');b.className='word';b.textContent=item.word;b.title='Tap to remove';b.onclick=()=>{item.button.disabled=false;item.button.style.opacity=1;built.splice(i,1);renderBuilt()};z.appendChild(b)})}
+function clearBuilt(){built.forEach(item=>{item.button.disabled=false;item.button.style.opacity=1});built=[];renderBuilt()}
+function checkSentence(){if(sentenceLocked)return;let x=sentences[si],attempt=built.map(v=>v.word).join(''),accepted=[x[1],...(x[3]||[])].map(words=>words.join(''));if(accepted.includes(attempt)){sentenceLocked=true;el('checkBtn').disabled=true;if(!awarded[5].has(si)){awarded[5].add(si);stars+=2}stats();sentenceFeedbackEl.textContent='✅ Perfect!';setTimeout(()=>{si++;si>=sentences.length?complete(5):renderSentence()},700)}else{lives=Math.max(0,lives-1);stats();sentenceFeedbackEl.textContent='The word order is not correct. Try again.'}}
+function complete(i){done[i]=true;if(i===levelsData.length-1){finalStarsEl.textContent=stars;show('finish');stageEl.textContent='Complete'}else{alert('🎉 Level complete! The next level is unlocked.');showMap()}}
+function resetGame(){stars=0;lives=5;done=Array(levelsData.length).fill(false);stats();showMap()}
+function resetGameFixed(){resetGame();awarded=levelsData.map(()=>new Set());sentenceLocked=false}
+function shuffle(a){for(let i=a.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+el('startBtn').addEventListener('click',showMap);el('resetMapBtn').addEventListener('click',resetGameFixed);el('speakBtn').addEventListener('click',speakQ);el('next').addEventListener('click',nextQ);el('clearBtn').addEventListener('click',clearBuilt);el('checkBtn').addEventListener('click',checkSentence);el('playAgainBtn').addEventListener('click',resetGameFixed);document.querySelectorAll('.map-btn').forEach(b=>b.addEventListener('click',showMap));stats();
+</script>
+</body>
+</html>
